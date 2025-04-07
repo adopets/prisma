@@ -65,9 +65,7 @@
       "node_modules/@prisma/engines/*"
     ]
   },
-  "bin": {
-    "prisma": "build/index.js"
-  },
+  "bin": "build/index.js",
   "devDependencies": {
     "@prisma/client": "workspace:*",
     "@prisma/debug": "workspace:*",

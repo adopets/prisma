@@ -5,8 +5,12 @@
   "license": "Apache-2.0",
   "engines": {
     "node": ">=16.13",
-    "pnpm": ">=8.6.7 <9"
+    "pnpm": ">=8.6.7 <9",
+    "yarn": "4.7.0"
   },
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "build": "pnpm -r build",
     "watch": "pnpm -r run dev && WATCH=true pnpm -r --parallel --stream run dev",
@@ -16,7 +20,7 @@
     "test": "dotenv -e ../../.db.env -- tsx scripts/ci/publish.ts --test",
     "status": "tsx scripts/ci/publish.ts --status",
     "pull": "tsx scripts/ci/publish.ts --pull",
-    "preinstall": "node ./scripts/only-allow-pnpm.js pnpm",
+    "preinstall": "node ./scripts/only-allow-pnpm.js yarn",
     "precommit": "lint-staged",
     "eslint": "eslint",
     "lint": "eslint --fix .",
