@@ -60,7 +60,8 @@ async function main() {
 
   if (args['--skipPack'] === false) {
     // this process will need to modify some package.json, we save copies
-    await $`pnpm -r exec cp package.json package.copy.json`
+    // await $`pnpm -r exec cp package.json package.copy.json`
+    await $`yarn workspaces foreach --all run \"cp package.json package.copy.json\"`
 
     // we prepare to replace references to local packages with their tarballs names
     const localPackageNames = [...allPackageFolderNames.map((p) => `@prisma/${p}`), 'prisma']
@@ -79,7 +80,8 @@ async function main() {
       await fs.writeFile(allPkgJsonPaths[i], JSON.stringify(allPkgJson[i], null, 2))
     }
 
-    await $`pnpm -r --parallel exec pnpm pack --pack-destination /tmp/`
+    // await $`pnpm -r --parallel exec pnpm pack --pack-destination /tmp/`
+    await $`yarn workspaces foreach --all --parallel run \"yarn pack --out /tmp/\"`
     await restoreOriginalState()
   }
 
@@ -99,7 +101,8 @@ async function main() {
     `${path.join(monorepoRoot, 'packages', 'client')}:/client`,
     `${e2eRoot}:/e2e`,
     `${path.join(e2eRoot, '.cache')}:/root/.cache`,
-    `${(await $`pnpm store path`.quiet()).stdout.trim()}:/root/.local/share/pnpm/store/v3`,
+    // `${(await $`pnpm store path`.quiet()).stdout.trim()}:/root/.local/share/pnpm/store/v3`,
+    `${(await $`yarn cache dir`).stdout.trim()}:/root/.yarn/cache`,
   ]
   const dockerVolumeArgs = dockerVolumes.flatMap((v) => ['-v', v])
 
@@ -193,7 +196,8 @@ async function main() {
 
 async function restoreOriginalState() {
   if (args['--skipPack'] === false) {
-    await $`pnpm -r exec cp package.copy.json package.json`
+    // await $`pnpm -r exec cp package.copy.json package.json`
+    await $`yarn workspaces foreach --all run \"cp package.copy.json package.json\"`
   }
 }
 

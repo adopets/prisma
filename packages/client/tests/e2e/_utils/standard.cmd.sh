@@ -45,5 +45,6 @@ rm -f /e2e/$NAME/LOGS.txt
   tsx _steps.ts;
   # when inline snapshots are created the first time, copy for convencience
   cp -r /test/$NAME/tests/* /e2e/$NAME/tests/ 2> /dev/null || true;
-  cp -r /test/$NAME/pnpm-lock.yaml /e2e/$NAME/ 2> /dev/null || true;
+  # cp -r /test/$NAME/pnpm-lock.yaml /e2e/$NAME/ 2> /dev/null || true;
+  cp -r /test/$NAME/yarn.lock /e2e/$NAME/ 2> /dev/null || true;
 ) 2>&1 | grep -v -E --line-buffered "$OUTPUT_REMOVAL_REGEX" > /e2e/$NAME/LOGS.txt;

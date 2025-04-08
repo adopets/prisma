@@ -10,7 +10,8 @@ RUN npm -v
 # at /usr/local/lib/node_modules/zx/build/vendor.js:2:17
 RUN npm i -g zx@7 
 
-RUN npm i -g pnpm
+# RUN npm i -g pnpm
+RUN npm i -g yarn
 RUN npm i -g typescript 
 RUN npm i -g ts-node 
 RUN npm i -g esbuild tsx

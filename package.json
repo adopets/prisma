@@ -12,8 +12,11 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "pnpm -r build",
-    "watch": "pnpm -r run dev && WATCH=true pnpm -r --parallel --stream run dev",
+    "dev": "yarn workspaces foreach --all run  dev",
+    "build:pnpm": "pnpm -r build",
+    "build": "yarn workspaces foreach --all run build",
+    "watch:pnpm": "pnpm -r run dev && WATCH=true pnpm -r --parallel --stream run dev",
+    "watch": "yarn workspaces foreach --all run dev && WATCH=true yarn workspaces foreach --interlaced --verbose run dev",
     "publish-all-dryrun": "tsx scripts/ci/publish.ts --publish --dry-run",
     "publish-all": "tsx scripts/ci/publish.ts --publish",
     "bump-engines": "tsx scripts/bump-engines.ts",
@@ -31,7 +34,8 @@
     "bench-stdout-only": "tsx scripts/bench.ts",
     "prepare": "is-ci || husky",
     "clean": "git clean -fdx -e /.envrc -e /docker/docker-compose.override.yml -e /sandbox",
-    "bundle-size": "pnpm i && pnpm -r dev && pnpm -r --parallel exec pnpm pack && cd packages/bundle-size && pnpm run create-gzip-files"
+    "bundle-size:pnpm": "pnpm i && pnpm -r dev && pnpm -r --parallel exec pnpm pack && cd packages/bundle-size && pnpm run create-gzip-files",
+    "bundle-size": "yarn install && yarn workspaces foreach --all run dev && yarn workspaces foreach --all --parallel run \"yarn pack & cd packages/bundle-size & yarn create-gzip-files\""
   },
   "devDependencies": {
     "@eslint/compat": "1.1.1",

@@ -17,9 +17,11 @@ void (async () => {
     return `${__dirname}/schema.sqlite.prisma`
   }
 
-  await $`pnpm install` // needs this for `pnpm prisma`
+  // await $`pnpm install` // needs this for `pnpm prisma`
+  await $`yarn install` // needs this for `pnpm prisma`
 
-  await $`pnpm list -r --depth -2` // print the versions of the dependencies installed
+  // await $`pnpm list -r --depth -2` // print the versions of the dependencies installed
+  await $`yarn workspaces foreach --recursive --depth 2 run list` // print the versions of the dependencies installed
 
   for (const project of projects) {
     // `nodejs_compat` is only needed when using `pg`
@@ -29,7 +31,8 @@ void (async () => {
 
     // Install deps & copy schema & generate Prisma Client
     await $`cp ${getSchemaFile(project)} ${projectDir}/schema.prisma`
-    await $`pnpm prisma generate --schema=${projectDir}/schema.prisma`
+    // await $`pnpm prisma generate --schema=${projectDir}/schema.prisma`
+    await $`yarn prisma generate --schema=${projectDir}/schema.prisma`
 
     // Delete existing output (if it exists)
     await $`rm -rf ${projectDir}/output`
