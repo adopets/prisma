@@ -1,8 +1,4 @@
 /node_modules
-/declaration
-
-/runtime
-/scripts/default-index.js
 /tests/memory/memory-report.html
 
 *.tsbuildinfo
