@@ -3312,7 +3312,7 @@ var require_package2 = __commonJS({
         "test-notypes": "dotenv -e ../../.db.env -- jest --testPathIgnorePatterns src/__tests__/types/types.test.ts",
         generate: "node scripts/postinstall.js",
         postinstall: "node scripts/postinstall.js",
-        prepublishOnly: "pnpm run build",
+        prepublishOnly: "yarn build",
         "new-test": "tsx ./helpers/new-test/new-test.ts"
       },
       files: [
